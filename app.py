@@ -45,7 +45,7 @@ dash_app.layout = html.Div([
 # Flask Routes for Auth (Login, Authentication, Logout)
 @app.route("/")
 def index():
-    return render_template('index.html')
+    return render_template('sign_on_page.html')
 
 @app.route("/login")
 def login():
