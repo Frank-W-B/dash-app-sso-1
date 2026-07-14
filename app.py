@@ -26,7 +26,7 @@ auth = Auth(
     client_id=os.environ.get("CLIENT_ID"),
     client_credential=os.environ.get("CLIENT_SECRET")
 )
-
+# ------------------ start dash app ----------------------------------------
 # Initialize the Dash App, linking it to the Flask server
 dash_app = dash.Dash(__name__, server=app, url_base_pathname='/dashboard/')
 dash_app.layout = html.Div([
@@ -41,6 +41,8 @@ dash_app.layout = html.Div([
     ),
     html.A("Logout", href="/logout", style={"color": "red", "textDecoration": "none", "fontWeight": "bold"}),
 ])
+
+# ------------------ end dash app ----------------------------------------
 
 # Flask Routes for Auth (Login, Authentication, Logout)
 @app.route("/")
