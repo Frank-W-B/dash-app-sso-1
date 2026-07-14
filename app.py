@@ -65,7 +65,7 @@ def login():
 def auth_response():
     # Process code/tokens returned by Microsoft identity provider
     result = auth.complete_log_in(request.args)
-    print(f'user: {auth.get_user()}')
+    #print(f'user: {auth.get_user()}')
     if "error" in result:
         return render_template("auth_error.html", result=result) 
         #return f"Authentication failed: {result.get('error_description')}", 400
