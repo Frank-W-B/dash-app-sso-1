@@ -1,5 +1,5 @@
 # Built with Python 3.13
-# Az 1
+# reset secret and Issuer URL
 
 import os
 import uuid
