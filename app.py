@@ -8,6 +8,7 @@ import dash
 from dash import html, dcc
 from werkzeug.middleware.proxy_fix import ProxyFix
 
+
 # Initialize Flask and Session
 app = Flask(__name__)
 # Tells Flask to trust the incoming HTTPS header from the Azure proxy
@@ -17,6 +18,7 @@ app.wsgi_app = ProxyFix(
 app.config["SESSION_TYPE"] = "filesystem"  # Stores data on server
 app.config["SECRET_KEY"] = os.environ.get("FLASK_SECRET_KEY", str(uuid.uuid4()))
 Session(app)
+
 
 # Configure Entra ID Authentication using environment variables
 # Initialize the Microsoft Identity Auth utility
@@ -52,6 +54,7 @@ dash_app.layout = html.Div([
 def index():
     return render_template('sign_on_page.html')
 
+
 @app.route("/login")
 def login():
     # Redirect user to Microsoft SSO login portal
@@ -60,6 +63,7 @@ def login():
         redirect_uri=url_for("auth_response", _external=True)
     )
     return redirect(auth_url["auth_uri"])
+
 
 @app.route("/getAToken")
 def auth_response():
@@ -71,11 +75,13 @@ def auth_response():
         #return f"Authentication failed: {result.get('error_description')}", 400
     return redirect(url_for("/dashboard/")) # Redirect to Dash index after login
 
+
 @app.route("/logout")
 def logout():
     # Clear local session and get redirect URL to log out of Microsoft 
     logout_url = auth.log_out(url_for("index", _external=True))
     return redirect(logout_url)
+
 
 # Security - redirect to index if there isn't an authenticated user 
 @app.before_request
