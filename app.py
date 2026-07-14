@@ -62,8 +62,8 @@ def auth_response():
     result = auth.complete_log_in(request.args)
     print(f'user: {auth.get_user()}')
     if "error" in result:
-        #return render_template("auth_error.html", result=result) Another option
-        return f"Authentication failed: {result.get('error_description')}", 400
+        return render_template("auth_error.html", result=result) 
+        #return f"Authentication failed: {result.get('error_description')}", 400
     return redirect(url_for("/dashboard/")) # Redirect to Dash index after login
 
 @app.route("/logout")
