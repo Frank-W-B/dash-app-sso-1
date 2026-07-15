@@ -2,8 +2,6 @@
 # reset secret and Issuer URL
 
 import os
-import uuid
-#import requests
 from flask import Flask, render_template, request, session, redirect, url_for
 from flask_session import Session
 from identity.web import Auth
@@ -19,8 +17,7 @@ app.wsgi_app = ProxyFix(
     app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1
 )
 app.config["SESSION_TYPE"] = "filesystem"  # Stores data on server
-#app.config["SECRET_KEY"] = os.environ.get("FLASK_SECRET_KEY", str(uuid.uuid4()))
-app.config["SECRET_KEY"] = str(uuid.uuid4())
+app.config["SECRET_KEY"] = os.environ.get("FLASK_SECRET_KEY")
 Session(app)
 
 

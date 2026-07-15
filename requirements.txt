@@ -2,5 +2,4 @@ dash
 flask
 flask-session
 identity
-requests
 gunicorn
