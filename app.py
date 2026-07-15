@@ -31,25 +31,6 @@ auth = Auth(
 )
 
 
-# ------------------ start dash app ----------------------------------------
-# Initialize the Dash App, linking it to the Flask server
-dash_app = dash.Dash(__name__, server=app, url_base_pathname='/dashboard/')
-dash_app.layout = html.Div([
-    html.H1("Secure Dashboard"),
-    html.P("Welcome to the authenticated portion of the application!"),
-    dcc.Graph(
-        id='example-graph',
-        figure={
-            'data': [{'x': [1, 2, 3], 'y': [4, 1, 2], 'type': 'bar', 'name': 'Sales'}],
-            'layout': {'title': 'Dash Data'}
-        }
-    ),
-    html.A("Logout", href="/logout", style={"color": "red", "textDecoration": "none", "fontWeight": "bold"}),
-])
-
-# ------------------ end dash app ----------------------------------------
-
-
 # Flask Routes for Auth (Login, Authentication, Logout)
 @app.route("/")
 def index():
@@ -93,6 +74,23 @@ def restrict_access():
         return redirect(url_for("index", _external=True))
     return None         
 
+# ------------------ start dash app ----------------------------------------
+# Initialize the Dash App, linking it to the Flask server
+dash_app = dash.Dash(__name__, server=app, url_base_pathname='/dashboard/')
+dash_app.layout = html.Div([
+    html.H1("Secure Dashboard"),
+    html.P("Welcome to the authenticated portion of the application!"),
+    dcc.Graph(
+        id='example-graph',
+        figure={
+            'data': [{'x': [1, 2, 3], 'y': [4, 1, 2], 'type': 'bar', 'name': 'Sales'}],
+            'layout': {'title': 'Dash Data'}
+        }
+    ),
+    html.A("Logout", href="/logout", style={"color": "red", "textDecoration": "none", "fontWeight": "bold"}),
+])
+
+# ------------------ end dash app ----------------------------------------
 
 if __name__ == "__main__":
     app.run(host="localhost", port=3000, debug=True)
